@@ -58,14 +58,27 @@
       </figure>
       <div class="lista-animali">
         <script type="text/babel">
-          const animals = ["Gatto", "Cane", "Topo", "Orso", "Serpente"];
+          const { useState } = React;
+
+          const allAnimals = ["Gatto", "Cane", "Topo", "Orso", "Serpente"];
 
           const ReactComponent = () => {
+            const [animals, setAnimals] = useState([]);
+
+            const addAnimal = () => {
+              const randomAnimal =
+                allAnimals[Math.floor(Math.random() * allAnimals.length)];
+              setAnimals([...animals, randomAnimal]);
+            };
+
             return (
               <div>
+                <button onClick={addAnimal}>Aggiungi Animale</button>
+
                 <details>
                   <summary>Animali</summary>
                 </details>
+
                 <ul>
                   {animals.map((a, i) => (
                     <li key={i}>{a}</li>
