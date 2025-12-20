@@ -1,55 +1,52 @@
-<!-- Il tuo collega, probabilmente distratto da un gatto o un pappagallo, 
-ha creato una pagina HTML statica invece di utilizzare React come richiesto. 
-La pagina è già online, quindi non possiamo rifarla da zero. Ora tocca a te trasformarla in una meraviglia interattiva usando React, 
-direttamente all’interno del documento HTML.
-Segui le milestone e dimostra che anche un errore può diventare un’opportunità per brillare! -->
-
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>I miei animali Preferiti</title>
     <link rel="stylesheet" href="style.css" />
+    
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <script type="text/babel">
       const { useState } = React;
-      const { createRoot } = ReactDOM;
 
-      const root = document.querySelector(".lista-animali");
-      const elemento = createRoot(root);
+      const animalsChoices = ["Cane", "Gatto", "Pappagallo", "Cavallo", "Panda"];
 
-      const animali = [
-        "gatto",
-        "topo",
-        "pesce",
-        "uccello",
-        "cane",
-        "giraffa",
-        "leocorno",
-        "capra",
-      ];
+      function AnimalList() {
+        const [animals, setAnimals] = useState([]);
 
-      function List (){      
+        const addRandomAnimal = () => {
+          const randomIndex = Math.floor(Math.random() * animalsChoices.length);
+          const animalScelto = animalsChoices[randomIndex];
+
+          setAnimals(prevAnimals => [...prevAnimals, animalScelto]);
+        };
+
         return (
-        <details>
-          <summary>
-            <strong>Animali</strong>
-          </summary>
-          <ul>
-            {animali.map((n, i) => (
-              <li key={i}>{n}</li>
-            ))}
-          </ul>
-        </details>
-      );}
+          <>
+            <button onClick={addRandomAnimal}>
+              Aggiungi Animale 
+            </button>
 
-      elemento.render(<List/>)
- 
+            <details>
+              <summary>
+                <strong>Animali ({animals.length})</strong>
+              </summary>
+                <ul>
+                  {animals.map((animal, index) => (
+                    <li key={index}>{animal}</li>
+                  ))}
+                </ul>
+            </details>
+          </>
+        );
+      }
 
+      const root = ReactDOM.createRoot(document.querySelector(".lista-animali"));
+      root.render(<AnimalList />);
     </script>
   </head>
   <body>
@@ -58,7 +55,7 @@ Segui le milestone e dimostra che anche un errore può diventare un’opportunit
     </header>
     <main>
       <figure>
-        <img src="https://picsum.photos/400/300" alt="Immagine Casuale" />
+        <img src="https://picsum.photos/400/300" alt="Immagine casuale di animali" />
       </figure>
       <div class="lista-animali"></div>
     </main>
